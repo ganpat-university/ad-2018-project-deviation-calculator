@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h3 class="text-center">Task Information</h3>
+    <div class="row">
+        <div class="col-xl-6 offset-xl-3">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Task Name</th>
+                        <th>Sales something</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><strong>Description</strong></td>
+                        <td>lorem ipsum chirode lola casas sfsfbnsb dgdgdfsg dfgdfgsdf dfgsfdg sdfg sdfg sdfg sdfg
+                            sdfg
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Target</strong></td>
+                        <td>34</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Unit</strong></td>
+                        <td>Companies</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Start Date</strong></td>
+                        <td>12-34-4545</td>
+                    </tr>
+                    <tr>
+                        <td><strong>End Date</strong><br></td>
+                        <td>34-56-5656</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="container">
+        <div class="card shadow-lg o-hidden border-0 my-5">
+            <div class="card-body p-0">
+                <div class="row">
+                    <div class="col-lg-6 offset-xl-3">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h4 class="text-dark mb-2">Please enter the today's Unit</h4>
+                                <p class="mb-4">Please enter the data according to task target. this data will impact on
+                                    your overall work process</p>
+                            </div>
+                            <form class="user">
+                                <div class="form-group">
+                                    <input class="form-control form-control-user" type="number"
+                                                               id="exampleInputEmail"
+                                                               placeholder="Enter data..." name="data">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control form-control-user" type="date"
+                                                               id="exampleInputEmail"
+                                                               placeholder="Enter today's date" name="date">
+                                </div>
+                                <button class="btn btn-primary btn-block text-white btn-user"
+                                        type="submit">Fill the data
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="margin-bottom: 17px;">
+        <div class="row">
+            <div class="col-xl-8 offset-xl-2 text-center">
+                <h3>All entered observations</h3>
+                <div class="table-responsive" style="background-color: #fff9ee;">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Observation</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>12-2-3445</td>
+                            <td>Cell 2</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container text-center" style="margin-top: 16px;margin-bottom: 16px;">
+        <a class="btn btn-info btn-icon-split" role="button" href="{% url 'tmdash' %}">
+            <span class="text-white-50 icon"><i class="fas fa-share"></i></span>
+            <span class="text-white text">Go to Dashboard</span>
+        </a>
+    </div>
+{% endblock %}

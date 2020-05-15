@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="row">
+        <div class="col-xl-6 offset-xl-3">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Task Name</th>
+                        <th>{{ task.taskname }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><strong>Description</strong></td>
+                        <td>{{ task.taskdesc }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Target</strong></td>
+                        <td>{{ task.target }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Unit</strong></td>
+                        <td>{{ task.unit }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Start Date</strong></td>
+                        <td>{{ task.startdate }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>End Date</strong><br></td>
+                        <td>{{ task.enddate }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="container text-center"><a class="btn btn-primary btn-icon-split" role="button"><span
+            class="text-white-50 icon"><i class="fas fa-user-plus"
+                                          style="font-size: 24px;margin-top: 2px;"></i></span><span
+            class="text-white text" style="font-size: 24px;">Add Member</span></a></div>
+    <div
+            class="container-fluid" style="margin-bottom: 0px;">
+        <h3 class="text-dark mb-4"></h3>
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <p class="text-primary m-0 font-weight-bold">Task information Table</p>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                    <table class="table dataTable my-0" id="dataTable">
+                        <thead>
+                        <tr>
+                            <th>Member name</th>
+                            <th>View Report</th>
+                            <th>Delete User</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for member in members %}
+                            <tr>
+                                <td>
+                                    <img class="rounded-circle mr-2" width="30" height="30"
+                                         src="{% static 'img/avatars/avatar2.jpeg' %} "> {{ member.memberid.user.username }}
+                                <td>
+                                    <a class="btn btn-success btn-icon-split" role="button" href="{% url 'report' member.taskid_id member.memberid.user.id %}">
+                                        <span class="text-white-50 icon"><i class="fas fa-check"></i></span>
+                                        <span class="text-white text">View Report</span>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger btn-icon-split" role="button">
+                                        <span class="text-white-50 icon"><i class="fas fa-trash"></i></span>
+                                        <span class="text-white text">Delete</span>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td><strong>Name</strong></td>
+                            <td><strong>Position</strong></td>
+                            <td><strong>Start date</strong></td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container text-center" style="margin-top: 16px;margin-bottom: 16px;">
+        <a class="btn btn-info btn-icon-split" role="button" href="{% url 'tmdash' %}">
+            <span class="text-white-50 icon"><i class="fas fa-share"></i></span>
+            <span class="text-white text">Go to Dashboard</span>
+        </a>
+    </div>
+{% endblock %}

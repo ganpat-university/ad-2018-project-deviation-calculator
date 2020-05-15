@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="row" style="color: #003049;background-color: #ecf5ff;margin-right: 0px;margin-left: 0px;">
+        <div class="col-xl-4 offset-xl-2 text-center">
+            <h1 style="font-size: 32px;margin-top: 10px;">Total Deviation:</h1>
+        </div>
+        <div class="col-xl-4 text-center">
+            <h1 style="font-size: 33px;margin-top: 10px;">{{ dev }}</h1>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-8 offset-xl-2">
+
+                <canvas id="myChart" height="300" width="500"></canvas>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+                <script>
+                    var ctx = document.getElementById('myChart').getContext('2d');
+                    var chart = new Chart(ctx, {
+                        // The type of chart we want to create
+                        type: 'line',
+
+                        data: {
+                            labels: {{ labels | safe }},
+                            datasets: [
+                                {
+                                    label: "Target",
+                                    fillColor: "rgba(245,157,159,0.2)",
+                                    strokeColor: "rgba(246,13,17,1)",
+                                    pointColor: "rgba(152,5,7,1)",
+                                    pointStrokeColor: "#fff",
+                                    pointHighlightFill: "#fff",
+                                    pointHighlightStroke: "rgba(220,220,220,1)",
+                                    data: {{ target | safe }}
+                                },
+                                {
+                                    label: "Your result",
+                                    fillColor: "rgba(151,187,205,0.3)",
+                                    strokeColor: "rgba(151,187,205,1)",
+                                    pointColor: "rgba(16,16,192,1)",
+                                    pointStrokeColor: "#fff",
+                                    pointHighlightFill: "#fff",
+                                    pointHighlightStroke: "rgba(151,187,205,1)",
+                                    data: {{ data | safe }}
+                                }
+                            ]
+                        },
+
+                        // Configuration options go here
+                        options: {}
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+    <br><br><br>
+
+    <div class="container text-center" style="margin-right: 0px;margin-left: 0px;margin-bottom: 0px;">
+        <div>
+            <h3>All entered observations</h3>
+        </div>
+        <div class="offset-xl-0" width="600px">
+            <div class="table-responsive" style="background-color: #f6ffff;">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Task Name</th>
+                        <th>{{ taskdetails.taskname }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><strong>Description</strong></td>
+                        <td>{{ taskdetails.taskdesc }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Target</strong></td>
+                        <td>{{ taskdetails.target }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Unit</strong></td>
+                        <td>{{ taskdetails.unit }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Start Date</strong></td>
+                        <td>{{ taskdetails.startdate }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>End Date</strong><br></td>
+                        <td>{{ taskdetails.enddate }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="text-center">
+            <div>
+                <h3>Task info.</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-4">
+                <div class="table-responsive" style="background-color: #fff9ee;">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Observation</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in taskdata %}
+                            <tr>
+                                <td>{{ i.fillupdate }}</td>
+                                <td>{{ i.reading }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="table-responsive" style="background-color: #fff9ee;">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Deviation</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in dvd %}
+                            <tr>
+                                <td>{{ i }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+    <div class="container text-center">
+        <a class="btn btn-info btn-icon-split" role="button" href="{% url 'tmdash' %}">
+            <span class="text-white-50 icon"><i class="fas fa-share"></i></span>
+            <span class="text-white text">Go to Dashboard</span>
+        </a>
+    </div>
+{% endblock %}
+

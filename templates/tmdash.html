@@ -1,0 +1,286 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-xl-3 mb-4">
+                <div class="card shadow border-left-primary py-2">
+                    <div class="card-body">
+                        <div class="row align-items-center no-gutters">
+                            <div class="col mr-2">
+                                <div class="text-uppercase text-primary font-weight-bold text-xs mb-1">
+                                    <span>Total tasks</span></div>
+                                <div class="text-dark font-weight-bold h5 mb-0"><span>{{ totaltask }}</span></div>
+                            </div>
+                            <div class="col-auto"><i class="fas fa-calendar-alt fa-2x text-gray-300"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-3 mb-4">
+                <div class="card shadow border-left-success py-2">
+                    <div class="card-body">
+                        <div class="row align-items-center no-gutters">
+                            <div class="col mr-2">
+                                <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>On going tasks</span>
+                                </div>
+                                <div class="text-dark font-weight-bold h5 mb-0"><span>{{ ongoingtaskcount }}</span>
+                                </div>
+                            </div>
+                            <div class="col-auto"><i class="fas fa-clipboard-list fa-2x text-gray-300"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-3 mb-4">
+                <div class="card shadow border-left-info py-2">
+                    <div class="card-body">
+                        <div class="row align-items-center no-gutters">
+                            <div class="col mr-2">
+                                <div class="text-uppercase text-info font-weight-bold text-xs mb-1">
+                                    <span>Upcoming tasks</span></div>
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col-auto">
+                                        <div class="text-dark font-weight-bold h5 mb-0 mr-3">
+                                            <span>{{ futuretaskcount }}</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto"><i class="fas fa-external-link-square-alt fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-3 mb-4">
+                <div class="card shadow border-left-warning py-2">
+                    <div class="card-body">
+                        <div class="row align-items-center no-gutters">
+                            <div class="col mr-2">
+                                <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span>Completed TAsk</span>
+                                </div>
+                                <div class="text-dark font-weight-bold h5 mb-0"><span>{{ oldtaskcount }}</span></div>
+                            </div>
+                            <div class="col-auto"><i class="fas fa-clipboard-check fa-2x text-gray-300"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container text-center" style="margin-top: 16px;margin-bottom: 16px;">
+        <a class="btn btn-info btn-icon-split" role="button" href="{% url 'createtask' %}">
+            <span class="text-white-50 icon"><i class="fas fa-edit"></i></span>
+            <span class="text-white text">Create Task</span>
+        </a>
+    </div>
+    <div class="container-fluid">
+        <h3 class="text-dark mb-4"></h3>
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <p class="text-primary m-0 font-weight-bold">On going Task information Table</p>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                    <table class="table dataTable my-0" id="dataTable">
+                        <thead>
+                        <tr style="background-color: #d9eef7;color: rgb(101,105,139);">
+                            <th width="240px">Task name</th>
+                            <th>Start date</th>
+                            <th>End date</th>
+                            <th>View members</th>
+                            <th>Add user</th>
+                            <th>Delete task</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if ongoingtaskcount == 0 %}
+                            <tr>
+                                <td colspan="6">
+                                    <img src="{% static 'img/nta.png' %}" alt="">
+                                </td>
+                            </tr>
+                        {% else %}
+                            {% for asd in ongoingtask %}
+                                <tr>
+                                    <td>{{ asd.taskname }}</td>
+                                    <td>{{ asd.startdate }}<br></td>
+                                    <td>{{ asd.enddate }}<br></td>
+                                    <td><a class="btn btn-secondary btn-icon-split" role="button"
+                                           href="{% url 'viewdetails' asd.id %}">
+                                        <span class="text-white-50 icon">
+                                    <i class="fas fa-arrow-right" style="margin-top: 0px;"></i></span>
+                                        <span class="text-white text">View Details</span></a>
+                                    </td>
+                                    <td><a class="btn btn-success btn-icon-split" role="button"
+                                           href="{% url 'adduser' asd.id %}">
+                                    <span class="text-white-50 icon"><i class="fas fa-user-plus"
+                                                                        style="margin-top: 0px;"></i></span><span
+                                            class="text-white text">Add members</span></a>
+                                    </td>
+                                    <td><a class="btn btn-danger btn-icon-split" role="button"><span
+                                            class="text-white-50 icon"><i
+                                            class="fas fa-trash" style="margin-top: 0px;"></i></span><span
+                                            class="text-white text">Delete task</span></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        </tbody>
+                        <tfoot>
+                        <tr style="color: rgb(101,105,139);background-color: #d9eef7;">
+                            <td><strong>Task name</strong></td>
+                            <td><strong>Start date</strong><br></td>
+                            <td><strong>End date</strong></td>
+                            <td><strong>View members</strong></td>
+                            <td><strong>Add user</strong><br></td>
+                            <td><strong>Delete task</strong></td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <h3 class="text-dark mb-4"></h3>
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <p class="text-primary m-0 font-weight-bold">Up coming Task information Table</p>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                    <table class="table dataTable my-0" id="dataTable">
+                        <thead>
+                        <tr style="background-color: #d9eef7;color: rgb(101,105,139);">
+                            <th width="240px">Task name</th>
+                            <th>Start date</th>
+                            <th>End date</th>
+                            <th>View members</th>
+                            <th>Add user</th>
+                            <th>Delete task</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if futuretaskcount == 0 %}
+                            <tr>
+                                <td colspan="6">
+                                    <img src="{% static 'img/nta.png' %}" alt="">
+                                </td>
+                            </tr>
+                        {% else %}
+                            {% for asd in futuretask %}
+                                <tr>
+                                    <td>{{ asd.taskname }}</td>
+                                    <td>{{ asd.startdate }}<br></td>
+                                    <td>{{ asd.enddate }}<br></td>
+                                    <td><a class="btn btn-secondary btn-icon-split" role="button"
+                                           href="{% url 'viewdetails' asd.id %}">
+                                        <span class="text-white-50 icon">
+                                    <i class="fas fa-arrow-right" style="margin-top: 0px;"></i></span>
+                                        <span class="text-white text">View Details</span></a>
+                                    </td>
+                                    <td><a class="btn btn-success btn-icon-split" role="button"
+                                           href="{% url 'adduser' asd.id %}">
+                                    <span class="text-white-50 icon"><i class="fas fa-user-plus"
+                                                                        style="margin-top: 0px;"></i></span><span
+                                            class="text-white text">Add members</span></a>
+                                    </td>
+                                    <td><a class="btn btn-danger btn-icon-split" role="button"><span
+                                            class="text-white-50 icon"><i
+                                            class="fas fa-trash" style="margin-top: 0px;"></i></span><span
+                                            class="text-white text">Delete task</span></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        </tbody>
+                        <tfoot>
+                        <tr style="color: rgb(101,105,139);background-color: #d9eef7;">
+                            <td><strong>Task name</strong></td>
+                            <td><strong>Start date</strong><br></td>
+                            <td><strong>End date</strong></td>
+                            <td><strong>View members</strong></td>
+                            <td><strong>Add user</strong><br></td>
+                            <td><strong>Delete task</strong></td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <h3 class="text-dark mb-4"></h3>
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <p class="text-primary m-0 font-weight-bold">Old completed Task information Table</p>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                    <table class="table dataTable my-0" id="dataTable">
+                        <thead>
+                        <tr style="background-color: #d9eef7;color: rgb(101,105,139);">
+                            <th width="240px">Task name</th>
+                            <th>Start date</th>
+                            <th>End date</th>
+                            <th>View members</th>
+                            <th>Delete task</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if oldcount == 0 %}
+                            <tr>
+                                <td colspan="6">
+                                    <img src="{% static 'img/nta.png' %}" alt="">
+                                </td>
+                            </tr>
+                        {% else %}
+                            {% for asd in oldtask %}
+                                <tr>
+                                    <td>{{ asd.taskname }}</td>
+                                    <td>{{ asd.startdate }}<br></td>
+                                    <td>{{ asd.enddate }}<br></td>
+                                    <td>
+                                        <a class="btn btn-secondary btn-icon-split" role="button"
+                                           href="{% url 'viewdetails' asd.id %}">
+                                        <span class="text-white-50 icon">
+                                        <i class="fas fa-arrow-right" style="margin-top: 0px;"></i>
+                                        </span>
+                                            <span class="text-white text">View Details</span>
+                                        </a>
+                                    </td>
+                                    <td><a class="btn btn-danger btn-icon-split" role="button"><span
+                                            class="text-white-50 icon"><i
+                                            class="fas fa-trash" style="margin-top: 0px;"></i></span><span
+                                            class="text-white text">Delete task</span></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        </tbody>
+                        <tfoot>
+                        <tr style="color: rgb(101,105,139);background-color: #d9eef7;">
+                            <td><strong>Task name</strong></td>
+                            <td><strong>Start date</strong><br></td>
+                            <td><strong>End date</strong></td>
+                            <td><strong>View members</strong></td>
+                            <td><strong>Delete task</strong></td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container text-center" style="color: rgb(255,0,0);margin-top: 16px;">
+        <p>After 1 year of complition all the information of task and data of all task member under this task will get
+            deleted. You can take screenshots of report for future use.</p>
+    </div>
+    <div class="container text-center" style="margin-top: 16px;margin-bottom: 16px;">
+        <a class="btn btn-info btn-icon-split" role="button" href="{% url 'tmdash' %}">
+            <span class="text-white-50 icon"><i class="fas fa-share"></i></span>
+            <span class="text-white text">Go to Dashboard</span>
+        </a>
+    </div>
+{% endblock %}

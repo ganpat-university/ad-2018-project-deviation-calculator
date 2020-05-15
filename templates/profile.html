@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+    <h1>{{ details.username }}</h1>
+    <div class="container-fluid">
+        <h3 class="text-center text-dark mb-4">Profile</h3>
+        <div class="row mb-3">
+            <div class="col-lg-4">
+                <div class="card mb-3">
+                    <div class="card-body text-center shadow pulse animated" style="height: 317px;">
+                        <img class="rounded-circle mb-3 mt-4" src="{{ request.user.duser.profile_pic.url }}" width="160"
+                             height="160">
+                        <div class="mb-3">
+                            <button class="btn btn-primary btn-sm" type="button" style="margin-top: 28px;">
+                                Change Photo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="col">
+                        <div class="card shadow pulse animated mb-3">
+                            <div class="card-header text-center py-3">
+                                <p class="text-primary m-0 font-weight-bold">User Settings</p>
+                            </div>
+                            <div class="card-body">
+                                <form method="POST" action="" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <div class="form-group"><label for="email"><strong>Email
+                                                Address</strong></label>
+                                                : {{ request.user.email }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <div class="form-group"><label for="first_name"><strong>First
+                                                Name</strong></label> : {{ request.user.first_name }}
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group"><label for="last_name">
+                                                <strong>Last Name</strong></label> : {{ request.user.last_name }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <div class="form-group"><label for="phone no."><strong>Phone no.</strong></label>
+                                                : {% render_field dform.phone class="form-control" type="text" placeholder="Enter phone no" height="45px" %}
+                                            </div>
+                                        </div>
+                                        <div class="col" style="margin-left: -100px">
+                                            <div class="form-group"><label for="Add profile pic"><strong>Add profile pic</strong></label><br>
+                                                {% render_field dform.profile_pic class="form-controlS btn btn-outline-primary" %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group text-center">
+                                        <button class="btn btn-primary btn-sm" type="submit">Save Settings
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container text-center">
+        <a class="btn btn-info btn-icon-split" role="button" href="{% url 'tmdash' %}">
+            <span class="text-white-50 icon"><i class="fas fa-share"></i></span>
+            <span class="text-white text">Go to Dashboard</span>
+        </a>
+    </div>
+{% endblock %}

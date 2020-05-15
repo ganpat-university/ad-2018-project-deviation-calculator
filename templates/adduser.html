@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+    <div class="container-fluid">
+        <h3 class="text-dark mb-1"></h3>
+    </div>
+    <div class="card shadow-lg o-hidden border-0 my-5">
+        <div class="card-body p-0">
+            <div class="row">
+                <div class="col-lg-7 col-xl-8 offset-xl-2">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h4 class="text-dark mb-4">Search user here</h4>
+                        </div>
+                        <form class="user" method="get">
+                            <div class="form-group">
+                                {% render_field searchfield.form.dusername class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address" %}
+                            </div>
+                            <input type="submit" class="btn btn-primary btn-block text-white btn-user"
+                                   value="Search User">
+                            <hr>
+                            <hr>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <p class="text-primary m-0 font-weight-bold">Available user Table</p>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                    <table class="table dataTable my-0" id="dataTable">
+                        <thead>
+                        <tr>
+                            <th style="width: 250px;">Member name</th>
+                            <th style="width: 317px;">Email id</th>
+                            <th>Add User</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for asd in users %}
+                            <tr>
+                                <td><img class="rounded-circle mr-2" width="30" height="30"
+                                         src="{% static 'img/avatars/avatar2.jpeg' %}">{{ asd.user.username }}
+                                </td>
+                                <td>{{ asd.user.email }}</td>
+                                <td><a class="btn btn-success btn-icon-split" role="button"
+                                       href="{% url 'assigntask' tid asd.id %}">
+                                    <span class="text-white-50 icon"><i class="fa fa-user-plus"></i></span>
+                                    <span class="text-white text">Add User</span></a><br>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td><strong>Member name</strong></td>
+                            <td style="width: 317px;"><strong>Email id</strong><br></td>
+                            <td><strong>Add user</strong></td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container text-center" style="margin-top: 16px;margin-bottom: 16px;">
+        <a class="btn btn-info btn-icon-split" role="button" href="{% url 'tmdash' %}">
+            <span class="text-white-50 icon"><i class="fas fa-share"></i></span>
+            <span class="text-white text">Go to Dashboard</span>
+        </a>
+    </div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'basefile.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+    <body class="bg-gradient-primary">
+    <div class="container bounce animated">
+        <div class="card shadow-lg o-hidden border-0 my-5">
+            <div class="card-body p-0">
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-flex">
+                        <div class="flex-grow-1 bg-register-image"
+                             style="background-image: url({% static 'img/dogs/image2.jpeg' %});">
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h4 class="text-dark mb-4">Create an Account!</h4>
+                            </div>
+                            <form class="user" method="POST">
+                                {% csrf_token %}
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        {% render_field form.username class="form-control form-control-user" id="exampleFirstName" placeholder="User Name" %}
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <select class="browser-default custom-select" name="role">
+                                            <option value="taskmember"> Task Member</option>
+                                            <option value="taskmanager"> Task Manager</option>
+                                        </select>
+{#                                        {% render_field form.role class="form-control form-control-user" id="exampleFirstName" placeholder="Role" %}#}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        {% render_field form.first_name class="form-control form-control-user" id="exampleFirstName" placeholder="First Name" %}
+                                    </div>
+                                    <div class="col-sm-6">
+                                        {% render_field form.last_name class="form-control form-control-user" id="exampleFirstName" placeholder="Last Name" %}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    {% render_field form.email id="exampleInputEmail" class="form-control form-control-user" placeholder="Email Address" %}
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        {% render_field form.password1 id="examplePasswordInput" class="form-control form-control-user" placeholder="Password" %}
+                                    </div>
+                                    <div class="col-sm-6">
+                                        {% render_field form.password2 id="exampleRepeatPasswordInput" class="form-control form-control-user" placeholder="Confirm Password" %}
+                                    </div>
+                                </div>
+                                <input type="submit" name="CreateUser"
+                                       class="btn btn-primary btn-block text-white btn-user">
+                            </form>
+                            {{ form.errors }}
+                            <div class="text-center"><a class="small" href="{% url 'forgotpassword' %}">Forgot
+                                Password?</a></div>
+                            <div class="text-center"><a class="small" href="{% url 'signin' %}">Already have an account?
+                                Login!</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

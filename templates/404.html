@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container-fluid text-center">
+        <h1 class="display-3 flash animated infinite" style="color: rgb(191,24,24);"><em>Locha-e-webapp</em></h1>
+        <p class="text-center" style="font-size: 19px;">It's not a right time to visit this corner of Amezal world. Or
+            You have to be worthy to roam at place like this. Service is currently unavailable. Please try after some
+            time</p>
+        <a class="btn btn-info btn-icon-split" role="button" href="{% url 'tmdash' %}">
+            <span class="text-white-50 icon"><i class="fas fa-share"></i></span>
+            <span class="text-white text">Go to Dashboard</span>
+        </a>
+    </div>
+{% endblock %}
+
+
